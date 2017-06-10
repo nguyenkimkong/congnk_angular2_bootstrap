@@ -1,0 +1,7 @@
+<ul class="items">
+	<li *ngFor="let customer of customers | async" (click)="onSelect(customer)"
+		[class.selected]="isSelected(customer)"><span class="badge">{{
+			customer.id }}</span> {{ customer.project_name }}</li>
+</ul>
+
+<router-outlet></router-outlet>

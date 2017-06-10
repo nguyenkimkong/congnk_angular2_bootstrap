@@ -1,0 +1,55 @@
+"use strict";
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+Object.defineProperty(exports, "__esModule", { value: true });
+var core_1 = require("@angular/core");
+var router_1 = require("@angular/router");
+var customerlist_component_1 = require("./customerlist/customerlist.component");
+var customerdetail_component_1 = require("./customerdetail/customerdetail.component");
+var customer_center_component_1 = require("./customer-center.component");
+var can_deactivate_guard_1 = require("../../../services/can-deactivate.guard");
+var customer_detail_resolver_service_1 = require("./customerdetail/customer-detail-resolver.service");
+var customer_center_home_component_1 = require("./customer-center-home.component");
+var routes = [{
+        path: '',
+        component: customer_center_component_1.CustomerCenterComponent,
+        children: [
+            {
+                path: '',
+                component: customerlist_component_1.CustomerListComponent,
+                children: [
+                    {
+                        path: ':id',
+                        component: customerdetail_component_1.CustomerDetailComponent,
+                        canDeactivate: [can_deactivate_guard_1.CanDeactivateGuard],
+                        resolve: {
+                            customer: customer_detail_resolver_service_1.CustomerDetailResolver
+                        }
+                    },
+                    {
+                        path: '',
+                        component: customer_center_home_component_1.CustomerCenterHomeComponent
+                    }
+                ]
+            }
+        ]
+    }];
+var CustmerRoutingModule = (function () {
+    function CustmerRoutingModule() {
+    }
+    return CustmerRoutingModule;
+}());
+CustmerRoutingModule = __decorate([
+    core_1.NgModule({
+        imports: [router_1.RouterModule.forChild(routes)],
+        exports: [router_1.RouterModule],
+        providers: [
+            customer_detail_resolver_service_1.CustomerDetailResolver
+        ]
+    })
+], CustmerRoutingModule);
+exports.CustmerRoutingModule = CustmerRoutingModule;
